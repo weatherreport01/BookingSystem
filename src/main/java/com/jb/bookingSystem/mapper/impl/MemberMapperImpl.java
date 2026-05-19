@@ -11,7 +11,6 @@ public class MemberMapperImpl implements MemberMapper {
     @Override
     public MemberDto toDto(MemberEntity member) {
         return new MemberDto(
-                member.getId(),
                 member.getName(),
                 member.getEmail(),
                 member.getPhoneNumber()

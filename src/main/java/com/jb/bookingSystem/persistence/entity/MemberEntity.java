@@ -12,8 +12,13 @@ public class MemberEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(unique = true,nullable = false)
     private String email;
+
     private String phoneNumber;
 
     public MemberEntity(int id, String name, String email, String phoneNumber) {

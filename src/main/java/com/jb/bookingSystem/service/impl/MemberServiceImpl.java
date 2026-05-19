@@ -23,9 +23,11 @@ public class MemberServiceImpl implements MemberService {
     }
 
     public Optional<MemberDto> getMember(Integer id){
-        Optional<MemberEntity> memberFromDB = memberRepository.findById(id);
-        return memberFromDB.map(memberMapper::toDto);
+        return memberRepository.findById(id)
+                .map(memberMapper::toDto);
     }
 
-
+    public Optional<MemberDto> getMemberByName(String name){
+        return memberRepository.findByName(name).map(memberMapper::toDto);
+    }
 }
