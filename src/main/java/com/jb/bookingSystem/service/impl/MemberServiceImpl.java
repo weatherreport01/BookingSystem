@@ -30,4 +30,6 @@ public class MemberServiceImpl implements MemberService {
     public Optional<MemberDto> getMemberByName(String name){
         return memberRepository.findByName(name).map(memberMapper::toDto);
     }
+
+    // will add more later
 }

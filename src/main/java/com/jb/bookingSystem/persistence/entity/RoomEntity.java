@@ -18,15 +18,11 @@ public class RoomEntity {
     @Enumerated(EnumType.STRING)
     private RoomType type;
 
-    @OneToMany(mappedBy = "room")
-    private List<BookingEntity> bookings;
-
-
-    public RoomEntity(int id, int roomNumber, RoomType type, List<BookingEntity> bookings) {
+    public RoomEntity(int id, int roomNumber, RoomType type) {
         this.id = id;
         this.roomNumber = roomNumber;
         this.type = type;
-        this.bookings = bookings;
+
     }
 
     public int getId() {
@@ -53,24 +49,16 @@ public class RoomEntity {
         this.type = type;
     }
 
-    public List<BookingEntity> getBookings() {
-        return bookings;
-    }
-
-    public void setBookings(List<BookingEntity> bookings) {
-        this.bookings = bookings;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         RoomEntity that = (RoomEntity) o;
-        return id == that.id && roomNumber == that.roomNumber && type == that.type && Objects.equals(bookings, that.bookings);
+        return id == that.id && roomNumber == that.roomNumber && type == that.type;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, roomNumber, type, bookings);
+        return Objects.hash(id, roomNumber, type);
     }
 
     @Override
@@ -79,7 +67,6 @@ public class RoomEntity {
                 "id=" + id +
                 ", roomNumber=" + roomNumber +
                 ", type=" + type +
-                ", bookings=" + bookings +
                 '}';
     }
 }

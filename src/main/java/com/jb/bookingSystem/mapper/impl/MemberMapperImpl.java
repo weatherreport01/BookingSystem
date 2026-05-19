@@ -16,4 +16,5 @@ public class MemberMapperImpl implements MemberMapper {
                 member.getPhoneNumber()
         );
     }
+    // will add more later
 }
