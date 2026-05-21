@@ -21,6 +21,7 @@ public class MemberEntity {
 
     private String phoneNumber;
 
+    public MemberEntity(){}
     public MemberEntity(int id, String name, String email, String phoneNumber) {
         this.id = id;
         this.name = name;
@@ -30,10 +31,6 @@ public class MemberEntity {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {

@@ -16,5 +16,12 @@ public class MemberMapperImpl implements MemberMapper {
                 member.getPhoneNumber()
         );
     }
-    // will add more later
+
+    public MemberEntity fromDto(MemberDto memberDto){
+        MemberEntity member = new MemberEntity();
+        member.setName(memberDto.name());
+        member.setEmail(memberDto.email());
+        member.setPhoneNumber(memberDto.phoneNumber());
+        return member;
+    }
 }

@@ -6,4 +6,6 @@ import com.jb.bookingSystem.persistence.entity.MemberEntity;
 public interface MemberMapper {
 
     MemberDto toDto(MemberEntity member);
+
+    MemberEntity fromDto(MemberDto member);
 }
