@@ -1,11 +1,14 @@
 package com.jb.bookingSystem.service.impl;
 
+import com.jb.bookingSystem.api.CreateMemberRequest;
+import com.jb.bookingSystem.api.UpdateMemberRequest;
 import com.jb.bookingSystem.api.dto.MemberDto;
 import com.jb.bookingSystem.mapper.MemberMapper;
 import com.jb.bookingSystem.mapper.impl.MemberMapperImpl;
 import com.jb.bookingSystem.persistence.entity.MemberEntity;
 import com.jb.bookingSystem.persistence.repository.MemberRepository;
 import com.jb.bookingSystem.service.MemberService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,14 +25,24 @@ public class MemberServiceImpl implements MemberService {
         this.memberMapper = memberMapper;
     }
 
-    public Optional<MemberDto> getMember(Integer id){
-        return memberRepository.findById(id)
-                .map(memberMapper::toDto);
+    public Optional<MemberEntity> getMember(Integer id){
+        return memberRepository.findById(id);
     }
 
-    public Optional<MemberDto> getMemberByName(String name){
-        return memberRepository.findByName(name).map(memberMapper::toDto);
+    public Optional<MemberEntity> getMemberByName(String name){
+        return memberRepository.findByName(name);
     }
 
-    // will add more later
+    public MemberEntity createMember(CreateMemberRequest memberRequest){
+        // add a db check to prevent two accounts with same email
+        MemberEntity memberEntity = memberMapper.fromDto(memberRequest);
+        return memberRepository.save(memberEntity);
+    }
+    public MemberEntity updateMember(int id, UpdateMemberRequest updateMemberRequest){
+        MemberEntity member = memberRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Member Not Found"));
+        // need to do email and phone number checks before updating anything in the db
+        memberMapper.fromDto(member,updateMemberRequest);
+        return memberRepository.save(member);
+    }
+
 }
