@@ -1,13 +1,21 @@
 package com.jb.bookingSystem.service;
 
+import com.jb.bookingSystem.api.CreateRoomRequest;
+import com.jb.bookingSystem.api.UpdateRoomRequest;
 import com.jb.bookingSystem.api.dto.RoomDto;
+import com.jb.bookingSystem.persistence.entity.RoomEntity;
 import com.jb.bookingSystem.persistence.entity.RoomType;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface RoomService {
 
-    Optional<RoomDto> getRoomByRoomNumber(int roomNumber);
+    Optional<RoomEntity> getRoomByRoomNumber(int roomNumber);
 
-    Optional<RoomDto> getRoomsByType(RoomType type);
+    List<RoomEntity> getRoomsByType(RoomType type);
+
+    RoomEntity createRoom(CreateRoomRequest createRoomRequest);
+
+    RoomEntity updateRoom(int id, UpdateRoomRequest updateRoomRequest);
 }
