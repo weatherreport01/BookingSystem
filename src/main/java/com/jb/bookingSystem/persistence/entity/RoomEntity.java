@@ -18,6 +18,8 @@ public class RoomEntity {
     @Enumerated(EnumType.STRING)
     private RoomType type;
 
+    public RoomEntity(){}
+
     public RoomEntity(int id, int roomNumber, RoomType type) {
         this.id = id;
         this.roomNumber = roomNumber;

@@ -9,9 +9,9 @@ import com.jb.bookingSystem.persistence.entity.RoomEntity;
 
 public interface RoomMapper {
 
-    RoomDto toDto(MemberEntity member);
+    RoomDto toDto(RoomEntity roomEntity);
 
     RoomEntity fromDto(CreateRoomRequest createRoomRequest);
 
-    RoomEntity fromDto(UpdateRoomRequest updateRoomRequest);
+    void fromDto(RoomEntity room, UpdateRoomRequest updateRoomRequest);
 }

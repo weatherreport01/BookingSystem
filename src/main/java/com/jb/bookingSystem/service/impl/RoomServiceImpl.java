@@ -8,11 +8,13 @@ import com.jb.bookingSystem.persistence.entity.RoomEntity;
 import com.jb.bookingSystem.persistence.entity.RoomType;
 import com.jb.bookingSystem.persistence.repository.RoomRepository;
 import com.jb.bookingSystem.service.RoomService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class RoomServiceImpl implements RoomService {
     private final RoomRepository roomRepository;
@@ -33,8 +35,9 @@ public class RoomServiceImpl implements RoomService {
     }
 
     public RoomEntity updateRoom(int id, UpdateRoomRequest updateRoomRequest){
-
-
+        RoomEntity roomEntity = roomRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Room not found"));
+        roomMapper.fromDto(roomEntity,updateRoomRequest);
+        return roomRepository.save(roomEntity);
     }
 
 }
