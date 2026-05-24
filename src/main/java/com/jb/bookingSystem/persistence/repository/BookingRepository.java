@@ -1,7 +1,6 @@
 package com.jb.bookingSystem.persistence.repository;
 
 import com.jb.bookingSystem.persistence.entity.BookingEntity;
-import com.jb.bookingSystem.persistence.entity.MemberEntity;
 import com.jb.bookingSystem.persistence.entity.RoomEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
