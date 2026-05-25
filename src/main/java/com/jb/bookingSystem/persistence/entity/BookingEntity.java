@@ -38,6 +38,7 @@ public class BookingEntity {
         this.status = status;
     }
 
+    public BookingEntity(){}
     public int getId() {
         return id;
     }
