@@ -42,14 +42,14 @@ public class BookingController {
             return ResponseEntity.ok(response);
     }
 
-    @PostMapping(path = "/bookingRoom")
+    @PostMapping(path = "/book")
     public ResponseEntity<BookingDto> createBooking(@Valid @RequestBody CreateBookingRequest request){
        BookingEntity booking = bookingService.createBooking(request);
        BookingDto response = bookingMapper.toDto(booking);
        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @PutMapping(path = "/{bookingId}/update")
+    @PutMapping(path = "/update/{bookingId}")
     public ResponseEntity<BookingDto> updateBooking(
             @PathVariable int bookingId,
             @Valid @RequestBody UpdateBookingRequest request
@@ -59,7 +59,7 @@ public class BookingController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping(path = "/{bookingId}")
+    @DeleteMapping(path = "/remove/{bookingId}")
     public ResponseEntity<Void> cancelBooking(@PathVariable int bookingId){
         bookingService.cancelBooking(bookingId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -25,6 +25,7 @@ public class MemberServiceImpl implements MemberService {
         this.memberMapper = memberMapper;
     }
 
+    // this one might be a bit useless
     public Optional<MemberEntity> getMember(Integer id){
         return memberRepository.findById(id);
     }
@@ -38,9 +39,8 @@ public class MemberServiceImpl implements MemberService {
         MemberEntity memberEntity = memberMapper.fromDto(memberRequest);
         return memberRepository.save(memberEntity);
     }
-    public MemberEntity updateMember(int id, UpdateMemberRequest updateMemberRequest){
-        MemberEntity member = memberRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Member Not Found"));
-        // need to do email and phone number checks before updating anything in the db
+    public MemberEntity updateMember(String email, UpdateMemberRequest updateMemberRequest){
+        MemberEntity member = memberRepository.findByEmail(email).orElseThrow(()->new EntityNotFoundException("Member Not Found"));
         memberMapper.fromDto(member,updateMemberRequest);
         return memberRepository.save(member);
     }

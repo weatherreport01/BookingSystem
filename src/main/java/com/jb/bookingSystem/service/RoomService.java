@@ -17,5 +17,5 @@ public interface RoomService {
 
     RoomEntity createRoom(CreateRoomRequest createRoomRequest);
 
-    RoomEntity updateRoom(int id, UpdateRoomRequest updateRoomRequest);
+    RoomEntity updateRoom(UpdateRoomRequest updateRoomRequest);
 }

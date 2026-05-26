@@ -34,8 +34,8 @@ public class RoomServiceImpl implements RoomService {
         return roomRepository.save(roomEntity);
     }
 
-    public RoomEntity updateRoom(int id, UpdateRoomRequest updateRoomRequest){
-        RoomEntity roomEntity = roomRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Room not found"));
+    public RoomEntity updateRoom(UpdateRoomRequest updateRoomRequest){
+        RoomEntity roomEntity = roomRepository.findByRoomNumber(updateRoomRequest.roomNumber()).orElseThrow(()->new EntityNotFoundException("Room not found"));
         roomMapper.fromDto(roomEntity,updateRoomRequest);
         return roomRepository.save(roomEntity);
     }

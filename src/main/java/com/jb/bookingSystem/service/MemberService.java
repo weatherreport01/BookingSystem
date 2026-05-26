@@ -16,5 +16,5 @@ public interface MemberService {
     // returns an entity but will convert to a dto in the controller layer
     MemberEntity createMember(CreateMemberRequest memberRequest);
 
-    MemberEntity updateMember(int id,UpdateMemberRequest updateMemberRequest);
+    MemberEntity updateMember(String email,UpdateMemberRequest updateMemberRequest);
 }

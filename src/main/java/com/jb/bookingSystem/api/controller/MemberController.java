@@ -1,10 +1,45 @@
 package com.jb.bookingSystem.api.controller;
 
+
+import com.jb.bookingSystem.api.CreateMemberRequest;
+import com.jb.bookingSystem.api.UpdateMemberRequest;
+import com.jb.bookingSystem.api.dto.MemberDto;
+import com.jb.bookingSystem.mapper.MemberMapper;
+import com.jb.bookingSystem.persistence.entity.MemberEntity;
+import com.jb.bookingSystem.service.MemberService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping(path = "/members")
 public class MemberController {
-    /*
-        Will do this in a few days
-        Need to get a good foundation going
-     */
+    private final MemberService memberService;
+    private final MemberMapper memberMapper;
 
 
+    public MemberController(MemberService memberService, MemberMapper memberMapper) {
+        this.memberService = memberService;
+        this.memberMapper = memberMapper;
+    }
+
+    @GetMapping(path = "/search/{name}")
+    public ResponseEntity<MemberDto> searchForMember(@PathVariable String name){
+        MemberEntity member = memberService.getMemberByName(name).orElseThrow(); // handle this later
+        MemberDto response = memberMapper.toDto(member);
+        return ResponseEntity.ok(response);
+    }
+    @PostMapping(path = "/create")
+    public ResponseEntity<MemberDto> createMember(@RequestBody CreateMemberRequest request){
+        MemberEntity member = memberService.createMember(request);
+        MemberDto response = memberMapper.toDto(member);
+        return new ResponseEntity<>(response,HttpStatus.CREATED);
+    }
+    @PutMapping(path = "/update/{memberId}")
+    public ResponseEntity<MemberDto> updateMember(@PathVariable String email, @RequestBody UpdateMemberRequest request){
+        MemberEntity member = memberService.updateMember(email,request);
+        MemberDto response = memberMapper.toDto(member);
+        return ResponseEntity.ok(response);
+
+    }
 }
