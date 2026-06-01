@@ -18,6 +18,8 @@ import java.awt.print.Book;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+
 @Service
 public class BookingServiceImpl implements BookingService {
 
@@ -41,17 +43,17 @@ public class BookingServiceImpl implements BookingService {
         return bookingRepository.save(bookingEntity);
     }
 
-    public Optional<BookingEntity> getBookingById(int bookingId){return bookingRepository.findById(bookingId);}
+    public Optional<BookingEntity> getBookingById(UUID bookingId){return bookingRepository.findById(bookingId);}
 
     public Optional<BookingEntity> getBookingByMember(String memberName){return bookingRepository.findByMemberName(memberName);}
 
-    public void cancelBooking(int bookingId){
+    public void cancelBooking(UUID bookingId){
         BookingEntity booking = bookingRepository.findById(bookingId).orElseThrow(()->new EntityNotFoundException("Booking not found"));
         booking.setStatus(BookingStatus.CANCELLED);
         bookingRepository.save(booking);
     }
 
-    public BookingEntity updateBooking(int bookingId, UpdateBookingRequest request){
+    public BookingEntity updateBooking(UUID bookingId, UpdateBookingRequest request){
         BookingEntity booking = bookingRepository.findById(bookingId).orElseThrow(()->new EntityNotFoundException("Booking not found"));
         bookingMapper.fromDto(booking,request);
         return bookingRepository.save(booking);

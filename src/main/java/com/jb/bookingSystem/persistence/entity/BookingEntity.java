@@ -5,13 +5,14 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "booking")
 public class BookingEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     @ManyToOne
     @JoinColumn(name = "roomId", nullable = false)
     private RoomEntity room;
@@ -29,7 +30,7 @@ public class BookingEntity {
     @Enumerated(EnumType.STRING)
     private BookingStatus status;
 
-    public BookingEntity(int id, RoomEntity room, MemberEntity member, LocalDateTime checkInDate, LocalDateTime checkOutDate, BookingStatus status) {
+    public BookingEntity(UUID id, RoomEntity room, MemberEntity member, LocalDateTime checkInDate, LocalDateTime checkOutDate, BookingStatus status) {
         this.id = id;
         this.room = room;
         this.member = member;
@@ -39,12 +40,9 @@ public class BookingEntity {
     }
 
     public BookingEntity(){}
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
+    public UUID getId() {
+        return id;
     }
 
     public RoomEntity getRoom() {

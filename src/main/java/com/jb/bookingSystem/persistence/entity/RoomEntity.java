@@ -4,13 +4,14 @@ import jakarta.persistence.*;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "room")
 public class RoomEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     @Column(unique = true,nullable = false)
     private int roomNumber;
 
@@ -20,19 +21,15 @@ public class RoomEntity {
 
     public RoomEntity(){}
 
-    public RoomEntity(int id, int roomNumber, RoomType type) {
+    public RoomEntity(UUID id, int roomNumber, RoomType type) {
         this.id = id;
         this.roomNumber = roomNumber;
         this.type = type;
 
     }
 
-    public int getId() {
+    public UUID getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getRoomNumber() {

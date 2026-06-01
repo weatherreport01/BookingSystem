@@ -4,14 +4,15 @@ package com.jb.bookingSystem.persistence.entity;
 import jakarta.persistence.*;
 
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "members")
 public class MemberEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(nullable = false)
     private String name;
@@ -22,14 +23,14 @@ public class MemberEntity {
     private String phoneNumber;
 
     public MemberEntity(){}
-    public MemberEntity(int id, String name, String email, String phoneNumber) {
+    public MemberEntity(UUID id, String name, String email, String phoneNumber) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 

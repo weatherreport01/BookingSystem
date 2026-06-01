@@ -40,4 +40,9 @@ public class RoomServiceImpl implements RoomService {
         return roomRepository.save(roomEntity);
     }
 
+    public void deleteRoom(int roomNumber) {
+        RoomEntity roomEntity = roomRepository.findByRoomNumber(roomNumber).orElseThrow();
+        roomRepository.delete(roomEntity);
+    }
+
 }

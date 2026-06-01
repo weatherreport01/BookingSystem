@@ -4,10 +4,11 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public record CreateBookingRequest(
-       @NotBlank int roomId,
-       @NotBlank @NotNull int memberId,
+       @NotBlank UUID roomId,
+       @NotBlank @NotNull UUID memberId,
        @NotBlank @NotNull LocalDateTime checkInDate,
        @NotBlank @NotNull LocalDateTime checkOutDate
 ) {

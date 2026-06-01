@@ -55,6 +55,10 @@ public class RoomController {
         return ResponseEntity.ok(response);
     }
 
-    // maybe add a delete room endpoint
+    @DeleteMapping(path = "/delete/{roomNumber}")
+    public ResponseEntity<Void> deleteRoom(@PathVariable int roomNumber){
+        roomService.deleteRoom(roomNumber);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 }

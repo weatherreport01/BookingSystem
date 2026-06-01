@@ -35,7 +35,7 @@ public class MemberController {
         MemberDto response = memberMapper.toDto(member);
         return new ResponseEntity<>(response,HttpStatus.CREATED);
     }
-    @PutMapping(path = "/update/{memberId}")
+    @PutMapping(path = "/update")
     public ResponseEntity<MemberDto> updateMember(@PathVariable String email, @RequestBody UpdateMemberRequest request){
         MemberEntity member = memberService.updateMember(email,request);
         MemberDto response = memberMapper.toDto(member);

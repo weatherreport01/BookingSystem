@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/booking")
 public class BookingController {
@@ -51,7 +53,7 @@ public class BookingController {
 
     @PutMapping(path = "/update/{bookingId}")
     public ResponseEntity<BookingDto> updateBooking(
-            @PathVariable int bookingId,
+            @PathVariable UUID bookingId,
             @Valid @RequestBody UpdateBookingRequest request
     ){
         BookingEntity bookingEntity = bookingService.updateBooking(bookingId,request);
@@ -60,7 +62,7 @@ public class BookingController {
     }
 
     @DeleteMapping(path = "/remove/{bookingId}")
-    public ResponseEntity<Void> cancelBooking(@PathVariable int bookingId){
+    public ResponseEntity<Void> cancelBooking(@PathVariable UUID bookingId){
         bookingService.cancelBooking(bookingId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

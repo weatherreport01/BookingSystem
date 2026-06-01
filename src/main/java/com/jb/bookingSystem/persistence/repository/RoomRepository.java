@@ -8,9 +8,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public interface RoomRepository extends JpaRepository<RoomEntity,Integer> {
+public interface RoomRepository extends JpaRepository<RoomEntity, UUID> {
     Optional<RoomEntity> findByRoomNumber(int roomNumber);
 
     List<RoomEntity> findByType(RoomType type);

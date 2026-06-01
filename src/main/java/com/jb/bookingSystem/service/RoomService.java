@@ -18,4 +18,6 @@ public interface RoomService {
     RoomEntity createRoom(CreateRoomRequest createRoomRequest);
 
     RoomEntity updateRoom(UpdateRoomRequest updateRoomRequest);
+
+    void deleteRoom(int roomNumber);
 }

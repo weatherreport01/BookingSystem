@@ -9,18 +9,19 @@ import com.jb.bookingSystem.persistence.entity.RoomEntity;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface BookingService {
 
     BookingEntity createBooking(CreateBookingRequest request);
 
-    Optional<BookingEntity> getBookingById(int bookingId);
+    Optional<BookingEntity> getBookingById(UUID bookingId);
 
     Optional<BookingEntity> getBookingByMember(String memberName);
 
-    void cancelBooking(int bookingId);
+    void cancelBooking(UUID bookingId);
 
-    BookingEntity updateBooking(int bookingId, UpdateBookingRequest request);
+    BookingEntity updateBooking(UUID bookingId, UpdateBookingRequest request);
 
     List<RoomEntity> getAvailableRooms(LocalDateTime checkInDate, LocalDateTime checkOutDate);
 

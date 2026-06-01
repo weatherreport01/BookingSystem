@@ -10,9 +10,10 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public interface BookingRepository extends JpaRepository<BookingEntity,Integer> {
+public interface BookingRepository extends JpaRepository<BookingEntity, UUID> {
     Optional<BookingEntity> findByMemberName(String name);
 
     @Query("SELECT r FROM RoomEntity r WHERE r.id NOT IN "+

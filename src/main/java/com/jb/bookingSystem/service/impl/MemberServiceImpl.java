@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -26,7 +27,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     // this one might be a bit useless
-    public Optional<MemberEntity> getMember(Integer id){
+    public Optional<MemberEntity> getMember(UUID id){
         return memberRepository.findById(id);
     }
 
