@@ -46,7 +46,8 @@ public class BookingController {
 
     @PostMapping(path = "/book")
     public ResponseEntity<BookingDto> createBooking(@Valid @RequestBody CreateBookingRequest request){
-       BookingEntity booking = bookingService.createBooking(request);
+        UUID member = null; // this is temp until I implement jwt
+       BookingEntity booking = bookingService.createBooking(member,request);
        BookingDto response = bookingMapper.toDto(booking);
        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }

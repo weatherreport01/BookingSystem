@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/members")
+@RequestMapping(path = "api/members")
 public class MemberController {
     private final MemberService memberService;
     private final MemberMapper memberMapper;

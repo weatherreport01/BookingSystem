@@ -13,7 +13,7 @@ import java.util.UUID;
 
 public interface BookingService {
 
-    BookingEntity createBooking(CreateBookingRequest request);
+    BookingEntity createBooking(UUID memberId, CreateBookingRequest request);
 
     Optional<BookingEntity> getBookingById(UUID bookingId);
 

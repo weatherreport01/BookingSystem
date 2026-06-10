@@ -8,7 +8,6 @@ import java.util.UUID;
 
 public record CreateBookingRequest(
        @NotBlank UUID roomId,
-       @NotBlank @NotNull UUID memberId,
        @NotBlank @NotNull LocalDateTime checkInDate,
        @NotBlank @NotNull LocalDateTime checkOutDate
 ) {

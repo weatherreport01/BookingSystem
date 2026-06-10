@@ -36,8 +36,8 @@ public class BookingServiceImpl implements BookingService {
         this.roomRepository = roomRepository;
     }
 
-    public BookingEntity createBooking(CreateBookingRequest request){
-        MemberEntity member = memberRepository.findById(request.memberId()).orElseThrow(()->new EntityNotFoundException("Member not found"));
+    public BookingEntity createBooking(UUID memberId, CreateBookingRequest request){
+        MemberEntity member = memberRepository.findById(memberId).orElseThrow(()->new EntityNotFoundException("Member not found"));
         RoomEntity room = roomRepository.findById(request.roomId()).orElseThrow(()->new EntityNotFoundException("Room not found"));
         BookingEntity bookingEntity = bookingMapper.fromDto(member,room,request);
         return bookingRepository.save(bookingEntity);
