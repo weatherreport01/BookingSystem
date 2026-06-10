@@ -7,7 +7,12 @@ function Booking (){
     const [selectedRoom, setSelectedRoom] = useState(null);
     const [feedback, setFeedback] = useState('');
 
-    const handleSearch = () => {
+    // to access jwt token to use it in headers
+    // you need to grab it via localstorage.getItem('authToken')
+    
+    // might also want to throw errors using if !response.ok
+
+    const handleSearch = async () => {
         setFeedback('');
         if (!checkInDate || !checkOutDate){
             setFeedback('Please select both check-in and check-out dates');
@@ -17,41 +22,40 @@ function Booking (){
             setFeedback('Please select a valid check-in and check-out date!');
             return;
         }
-        fetch(`http://localhost:8080/api/booking/availableRooms?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}`)
-            .then(response => response.json())
-            .then(data => {
-                setRooms(data);
-                setFeedback("Rooms Found!");
-                setTimeout(()=> setFeedback(''),3000);
-            })
-            .catch(error=>{
-                console.error('Search failed:', error);
-                setFeedback('Failed to Find rooms. Try again later.');
-            });
+        try{
+            const response = await fetch(`http://localhost:8080/api/booking/availableRooms?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}`);
+            const data = await response.json();
+            setRooms(data);
+            setFeedback("Rooms Found!");
+            setTimeout(()=> setFeedback(''),3000); 
+        } catch(error) {
+            console.error('Search failed:', error);
+            setFeedback('Failed to Find rooms. Try again later.');
+        };
 
     };
 
-    const handleBooking = () => {
+    const handleBooking = async() => {
         const bookingData = {
             roomId: selectedRoom.roomId, 
             checkInDate: checkInDate,
             checkOutDate: checkOutDate
         };
-        fetch(`http://localhost:8080/api/booking/book`, {
+        try{
+        const response = await fetch(`http://localhost:8080/api/booking/book`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'}, // need to add jwt stuff to backend
-            body: JSON.stringify(bookingData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            setSelectedRoom(null);
-            setFeedback("Booking confirmed!");
-            setTimeout(()=> setFeedback(''),3000);
-        })
-        .catch(error => {
+            body: JSON.stringify(bookingData)});
+        
+        const data = await response.json();
+        setSelectedRoom(null);
+        setFeedback("Booking confirmed!");
+        setTimeout(()=> setFeedback(''),3000);
+        
+        }catch(error){
             console.error('Booking failed:', error);
             setFeedback('Booking Failed. Try again later.');
-        });
+        };
     };
 
     return(
