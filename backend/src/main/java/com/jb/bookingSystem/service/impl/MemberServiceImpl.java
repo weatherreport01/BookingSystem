@@ -19,12 +19,10 @@ public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
     private final MemberMapper memberMapper;
-    private final PasswordEncoder encoder;
     @Autowired
-    public MemberServiceImpl(MemberRepository memberRepository, MemberMapper memberMapper, PasswordEncoder encoder){
+    public MemberServiceImpl(MemberRepository memberRepository, MemberMapper memberMapper){
         this.memberRepository = memberRepository;
         this.memberMapper = memberMapper;
-        this.encoder = encoder;
     }
 
     // this one might be a bit useless
@@ -37,9 +35,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     public MemberEntity createMember(AuthMemberRequest memberRequest){
-
-        AuthMemberRequest request = new AuthMemberRequest(memberRequest.name(), memberRequest.email(), encoder.encode(memberRequest.password()));
-        MemberEntity memberEntity = memberMapper.fromDto(request);
+        MemberEntity memberEntity = memberMapper.fromDto(memberRequest);
         return memberRepository.save(memberEntity);
     }
     public MemberEntity updateMember(String email, UpdateMemberRequest updateMemberRequest){
