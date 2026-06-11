@@ -1,15 +1,14 @@
 package com.jb.bookingSystem.service.impl;
 
-import com.jb.bookingSystem.api.CreateMemberRequest;
+import com.jb.bookingSystem.api.AuthMemberRequest;
 import com.jb.bookingSystem.api.UpdateMemberRequest;
-import com.jb.bookingSystem.api.dto.MemberDto;
 import com.jb.bookingSystem.mapper.MemberMapper;
-import com.jb.bookingSystem.mapper.impl.MemberMapperImpl;
 import com.jb.bookingSystem.persistence.entity.MemberEntity;
 import com.jb.bookingSystem.persistence.repository.MemberRepository;
 import com.jb.bookingSystem.service.MemberService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -20,10 +19,12 @@ public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
     private final MemberMapper memberMapper;
+    private final PasswordEncoder encoder;
     @Autowired
-    public MemberServiceImpl(MemberRepository memberRepository, MemberMapper memberMapper){
+    public MemberServiceImpl(MemberRepository memberRepository, MemberMapper memberMapper, PasswordEncoder encoder){
         this.memberRepository = memberRepository;
         this.memberMapper = memberMapper;
+        this.encoder = encoder;
     }
 
     // this one might be a bit useless
@@ -35,9 +36,10 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.findByName(name);
     }
 
-    public MemberEntity createMember(CreateMemberRequest memberRequest){
-        // add a db check to prevent two accounts with same email
-        MemberEntity memberEntity = memberMapper.fromDto(memberRequest);
+    public MemberEntity createMember(AuthMemberRequest memberRequest){
+
+        AuthMemberRequest request = new AuthMemberRequest(memberRequest.name(), memberRequest.email(), encoder.encode(memberRequest.password()));
+        MemberEntity memberEntity = memberMapper.fromDto(request);
         return memberRepository.save(memberEntity);
     }
     public MemberEntity updateMember(String email, UpdateMemberRequest updateMemberRequest){

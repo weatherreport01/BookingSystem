@@ -1,7 +1,7 @@
 package com.jb.bookingSystem.api.controller;
 
 
-import com.jb.bookingSystem.api.CreateMemberRequest;
+import com.jb.bookingSystem.api.AuthMemberRequest;
 import com.jb.bookingSystem.api.UpdateMemberRequest;
 import com.jb.bookingSystem.api.dto.MemberDto;
 import com.jb.bookingSystem.mapper.MemberMapper;
@@ -29,15 +29,9 @@ public class MemberController {
         MemberDto response = memberMapper.toDto(member);
         return ResponseEntity.ok(response);
     }
-    @PostMapping(path = "/create")
-    public ResponseEntity<MemberDto> createMember(@RequestBody CreateMemberRequest request){
-        MemberEntity member = memberService.createMember(request);
-        MemberDto response = memberMapper.toDto(member);
-        return new ResponseEntity<>(response,HttpStatus.CREATED);
-    }
     @PutMapping(path = "/update")
-    public ResponseEntity<MemberDto> updateMember(@PathVariable String email, @RequestBody UpdateMemberRequest request){
-        MemberEntity member = memberService.updateMember(email,request);
+    public ResponseEntity<MemberDto> updateMember(@RequestBody UpdateMemberRequest request){
+        MemberEntity member = memberService.updateMember(request.email(), request);
         MemberDto response = memberMapper.toDto(member);
         return ResponseEntity.ok(response);
 

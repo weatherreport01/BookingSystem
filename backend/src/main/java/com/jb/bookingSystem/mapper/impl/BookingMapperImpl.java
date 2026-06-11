@@ -9,7 +9,9 @@ import com.jb.bookingSystem.persistence.entity.BookingEntity;
 import com.jb.bookingSystem.persistence.entity.BookingStatus;
 import com.jb.bookingSystem.persistence.entity.MemberEntity;
 import com.jb.bookingSystem.persistence.entity.RoomEntity;
+import org.springframework.stereotype.Component;
 
+@Component
 public class BookingMapperImpl implements BookingMapper {
 
     @Override

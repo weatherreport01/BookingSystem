@@ -19,21 +19,20 @@ public class MemberEntity {
 
     @Column(unique = true,nullable = false)
     private String email;
-
-    private String phoneNumber;
+    @Column(nullable = false)
+    private String password;
 
     public MemberEntity(){}
-    public MemberEntity(UUID id, String name, String email, String phoneNumber) {
+    public MemberEntity(UUID id, String name, String email, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.phoneNumber = phoneNumber;
+        this.password = password;
     }
 
     public UUID getId() {
         return id;
     }
-
     public String getName() {
         return name;
     }
@@ -50,34 +49,23 @@ public class MemberEntity {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        MemberEntity that = (MemberEntity) o;
-        return id == that.id && Objects.equals(name, that.name) && Objects.equals(email, that.email) && Objects.equals(phoneNumber, that.phoneNumber);
+    public boolean equals(Object object) {
+        if (object == null || getClass() != object.getClass()) return false;
+        if (!super.equals(object)) return false;
+        MemberEntity member = (MemberEntity) object;
+        return java.util.Objects.equals(id, member.id) && java.util.Objects.equals(name, member.name) && java.util.Objects.equals(email, member.email) && java.util.Objects.equals(password, member.password);
     }
 
-    @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, phoneNumber);
-    }
-
-    @Override
-    public String toString() {
-        return "MemberEntity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                '}';
+        return java.util.Objects.hash(super.hashCode(), id, name, email, password);
     }
 }
 

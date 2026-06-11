@@ -1,6 +1,6 @@
 package com.jb.bookingSystem.mapper.impl;
 
-import com.jb.bookingSystem.api.CreateMemberRequest;
+import com.jb.bookingSystem.api.AuthMemberRequest;
 import com.jb.bookingSystem.api.UpdateMemberRequest;
 import com.jb.bookingSystem.api.dto.MemberDto;
 import com.jb.bookingSystem.mapper.MemberMapper;
@@ -14,22 +14,21 @@ public class MemberMapperImpl implements MemberMapper {
     public MemberDto toDto(MemberEntity member) {
         return new MemberDto(
                 member.getName(),
-                member.getEmail(),
-                member.getPhoneNumber()
+                member.getEmail()
         );
     }
 
-    public MemberEntity fromDto(CreateMemberRequest memberRequest){
+    public MemberEntity fromDto(AuthMemberRequest memberRequest){
         MemberEntity member = new MemberEntity();
         member.setName(memberRequest.name());
         member.setEmail(memberRequest.email());
-        member.setPhoneNumber(memberRequest.phoneNumber());
+        // need to hash the password
         return member;
     }
 
     public void fromDto(MemberEntity member, UpdateMemberRequest updateMemberRequest){
         member.setName(updateMemberRequest.name());
         member.setEmail(updateMemberRequest.email());
-        member.setPhoneNumber(updateMemberRequest.phoneNumber());
+        // need to hash new password
     }
 }
