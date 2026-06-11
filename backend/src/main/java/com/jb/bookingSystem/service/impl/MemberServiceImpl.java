@@ -40,6 +40,9 @@ public class MemberServiceImpl implements MemberService {
     }
     public MemberEntity updateMember(String email, UpdateMemberRequest updateMemberRequest){
         MemberEntity member = memberRepository.findByEmail(email).orElseThrow(()->new EntityNotFoundException("Member Not Found"));
+        if(memberRepository.existsByEmail(updateMemberRequest.email()) && updateMemberRequest.email() != null ){
+            throw new IllegalArgumentException("Email already in use!");
+        }
         memberMapper.fromDto(member,updateMemberRequest);
         return memberRepository.save(member);
     }
