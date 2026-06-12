@@ -7,10 +7,6 @@ function Booking (){
     const [selectedRoom, setSelectedRoom] = useState(null);
     const [feedback, setFeedback] = useState('');
 
-    // to access jwt token to use it in headers
-    // you need to grab it via localstorage.getItem('authToken')
-    
-    // might also want to throw errors using if !response.ok
 
     const handleSearch = async () => {
         setFeedback('');
@@ -24,10 +20,17 @@ function Booking (){
         }
         try{
             const response = await fetch(`http://localhost:8080/api/booking/availableRooms?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}`);
-            const data = await response.json();
-            setRooms(data);
-            setFeedback("Rooms Found!");
-            setTimeout(()=> setFeedback(''),3000); 
+            
+            if(!response.ok()){
+                setFeedback("Booking failed try again!")
+            }
+            else{
+                const data = await response.json();
+                setRooms(data);
+                setFeedback("Rooms Found!");
+                setTimeout(()=> setFeedback(''),3000); 
+            }
+
         } catch(error) {
             console.error('Search failed:', error);
             setFeedback('Failed to Find rooms. Try again later.');
@@ -42,16 +45,23 @@ function Booking (){
             checkOutDate: checkOutDate
         };
         try{
-        const response = await fetch(`http://localhost:8080/api/booking/book`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'}, // need to add jwt stuff to backend
-            body: JSON.stringify(bookingData)});
-        
-        const data = await response.json();
-        setSelectedRoom(null);
-        setFeedback("Booking confirmed!");
-        setTimeout(()=> setFeedback(''),3000);
-        
+            const response = await fetch(`http://localhost:8080/api/booking/book`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('authToken')}`}, // need to add jwt stuff to backend
+                body: JSON.stringify(bookingData)
+            });
+
+            if(!response.ok()){
+                setFeedback("Booking failed try again!")
+            } 
+            else{
+                const data = await response.json();
+                setSelectedRoom(null);
+                setFeedback("Booking confirmed!");
+                setTimeout(()=> setFeedback(''),3000);
+            }
+
         }catch(error){
             console.error('Booking failed:', error);
             setFeedback('Booking Failed. Try again later.');
