@@ -1,6 +1,7 @@
 package com.jb.bookingSystem.service.impl;
 
 import com.jb.bookingSystem.api.AuthMemberRequest;
+import com.jb.bookingSystem.api.CreateMemberRequest;
 import com.jb.bookingSystem.api.UpdateMemberRequest;
 import com.jb.bookingSystem.mapper.MemberMapper;
 import com.jb.bookingSystem.persistence.entity.MemberEntity;
@@ -34,9 +35,9 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.findByName(name);
     }
 
-    public MemberEntity createMember(AuthMemberRequest memberRequest){
+    public void createMember(CreateMemberRequest memberRequest){
         MemberEntity memberEntity = memberMapper.fromDto(memberRequest);
-        return memberRepository.save(memberEntity);
+        memberRepository.save(memberEntity);
     }
     public MemberEntity updateMember(String email, UpdateMemberRequest updateMemberRequest){
         MemberEntity member = memberRepository.findByEmail(email).orElseThrow(()->new EntityNotFoundException("Member Not Found"));

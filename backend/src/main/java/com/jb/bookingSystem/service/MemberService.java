@@ -1,6 +1,7 @@
 package com.jb.bookingSystem.service;
 
 import com.jb.bookingSystem.api.AuthMemberRequest;
+import com.jb.bookingSystem.api.CreateMemberRequest;
 import com.jb.bookingSystem.api.UpdateMemberRequest;
 import com.jb.bookingSystem.persistence.entity.MemberEntity;
 
@@ -13,8 +14,7 @@ public interface MemberService {
 
     Optional<MemberEntity> getMemberByName(String name);
 
-    // returns an entity but will convert to a dto in the controller layer
-    MemberEntity createMember(AuthMemberRequest memberRequest);
+    void createMember(CreateMemberRequest memberRequest);
 
     MemberEntity updateMember(String email,UpdateMemberRequest updateMemberRequest);
 }

@@ -1,6 +1,7 @@
 package com.jb.bookingSystem.mapper.impl;
 
 import com.jb.bookingSystem.api.AuthMemberRequest;
+import com.jb.bookingSystem.api.CreateMemberRequest;
 import com.jb.bookingSystem.api.UpdateMemberRequest;
 import com.jb.bookingSystem.api.dto.MemberDto;
 import com.jb.bookingSystem.mapper.MemberMapper;
@@ -25,7 +26,7 @@ public class MemberMapperImpl implements MemberMapper {
         );
     }
 
-    public MemberEntity fromDto(AuthMemberRequest memberRequest){
+    public MemberEntity fromDto(CreateMemberRequest memberRequest){
         MemberEntity member = new MemberEntity();
         member.setName(memberRequest.name());
         member.setEmail(memberRequest.email());

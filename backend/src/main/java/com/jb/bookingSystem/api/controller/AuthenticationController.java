@@ -1,6 +1,7 @@
 package com.jb.bookingSystem.api.controller;
 
 import com.jb.bookingSystem.api.AuthMemberRequest;
+import com.jb.bookingSystem.api.CreateMemberRequest;
 import com.jb.bookingSystem.persistence.repository.MemberRepository;
 import com.jb.bookingSystem.security.JwtUtil;
 import com.jb.bookingSystem.service.MemberService;
@@ -48,7 +49,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(token);
     }
     @PostMapping("/signup")
-    public ResponseEntity<String> registerUser(@RequestBody AuthMemberRequest memberRequest){
+    public ResponseEntity<String> registerUser(@RequestBody CreateMemberRequest memberRequest){
         if (memberRepository.existsByEmail(memberRequest.email())){
             return ResponseEntity.status(409).body("This account already exists!");
         }

@@ -53,13 +53,14 @@ function Booking (){
             });
 
             if(!response.ok()){
-                setFeedback("Booking failed try again!")
-            } 
-            else{
                 const data = await response.json();
                 setSelectedRoom(null);
                 setFeedback("Booking confirmed!");
                 setTimeout(()=> setFeedback(''),3000);
+            } 
+            else{
+                setFeedback("Booking failed try again!")
+
             }
 
         }catch(error){
@@ -76,7 +77,7 @@ function Booking (){
                 <input type="datetime-local" onChange={(e)=>setCheckInDate(e.target.value)}/>
                 <input type="datetime-local" onChange={(e)=>setCheckOutDate(e.target.value)}/>
                 <button onClick={handleSearch} disabled={!checkInDate || !checkOutDate}>Search</button>
-
+                
                 <ul>
                     {rooms.map((room)=>(
                         <li key={room.roomId}>
