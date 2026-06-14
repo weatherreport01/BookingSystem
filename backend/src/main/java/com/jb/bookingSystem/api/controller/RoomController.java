@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/rooms")
+@RequestMapping(path = "/api/v1/rooms")
 public class RoomController {
     private final RoomService roomService;
     private final RoomMapper roomMapper;

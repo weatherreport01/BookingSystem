@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/booking")
+@RequestMapping("/api/v1/booking")
 public class BookingController {
     private final BookingService bookingService;
     private final BookingMapper bookingMapper;

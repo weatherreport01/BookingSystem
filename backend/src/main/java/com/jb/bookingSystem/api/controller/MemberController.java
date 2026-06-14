@@ -14,7 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "api/members")
+@RequestMapping(path = "/api/v1/members")
 public class MemberController {
     private final MemberService memberService;
     private final MemberMapper memberMapper;
