@@ -19,9 +19,16 @@ function Booking (){
             return;
         }
         try{
-            const response = await fetch(`http://localhost:8080/api/booking/availableRooms?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}`);
+            const token = localStorage.getItem('authToken');
+            const response = await fetch(`http://localhost:8080/api/booking/availableRooms?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}`,{
+                method: 'GET',
+                headers: {
+                    'content-type': 'application/json',
+                    'Authorization': `Bearer ${token}` // need to include this as endpoint is protected
+                }
+            });
             
-            if(!response.ok()){
+            if(!response.ok){
                 setFeedback("Booking failed try again!")
             }
             else{
@@ -45,14 +52,15 @@ function Booking (){
             checkOutDate: checkOutDate
         };
         try{
+            const token = localStorage.getItem('authToken');
             const response = await fetch(`http://localhost:8080/api/booking/book`, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('authToken')}`}, // need to add jwt stuff to backend
+                        'Authorization': `Bearer ${token}`}, 
                 body: JSON.stringify(bookingData)
             });
 
-            if(!response.ok()){
+            if(!response.ok){
                 const data = await response.json();
                 setSelectedRoom(null);
                 setFeedback("Booking confirmed!");
