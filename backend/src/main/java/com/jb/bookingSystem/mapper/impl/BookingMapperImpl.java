@@ -35,9 +35,6 @@ public class BookingMapperImpl implements BookingMapper {
         if(bookingRequest.checkOutDate() !=null ){
             booking.setCheckOutDate(bookingRequest.checkOutDate());
         }
-        if(bookingRequest.status() !=null){
-            booking.setStatus(bookingRequest.status());
-        }
     }
 
     @Override

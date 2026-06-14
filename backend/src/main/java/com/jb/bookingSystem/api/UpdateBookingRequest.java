@@ -8,7 +8,6 @@ import java.util.UUID;
 public record UpdateBookingRequest(
         UUID id,
         LocalDateTime checkInDate,
-        LocalDateTime checkOutDate,
-        BookingStatus status
+        LocalDateTime checkOutDate
 ) {
 }

@@ -19,12 +19,11 @@ function Booking (){
             return;
         }
         try{
-            const token = localStorage.getItem('authToken');
             const response = await fetch(`http://localhost:8080/api/v1/booking/availableRooms?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}`,{
                 method: 'GET',
                 headers: {
                     'content-type': 'application/json',
-                    'Authorization': `Bearer ${token}` // need to include this as endpoint is protected
+                    'Authorization': `Bearer ${localStorage.getItem('authToken')}` // need to include this as endpoint is protected
                 }
             });
             
@@ -52,11 +51,10 @@ function Booking (){
             checkOutDate: checkOutDate
         };
         try{
-            const token = localStorage.getItem('authToken');
             const response = await fetch(`http://localhost:8080/api/v1/booking/book`, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`}, 
+                        'Authorization': `Bearer ${localStorage.getItem('authToken')}`}, 
                 body: JSON.stringify(bookingData)
             });
 
@@ -67,8 +65,7 @@ function Booking (){
                 setTimeout(()=> setFeedback(''),3000);
             } 
             else{
-                setFeedback("Booking failed try again!")
-
+                setFeedback("Booking failed try again!");
             }
 
         }catch(error){

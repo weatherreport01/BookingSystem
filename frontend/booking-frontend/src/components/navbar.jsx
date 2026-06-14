@@ -16,6 +16,9 @@ function NavBar(){
             <Link to="/booking">
                 <button>Booking</button>
             </Link>
+            <Link to="/manage">
+                <button>Manage Bookings</button>
+            </Link>
             {token && <button onClick={handleLogout}>Logout</button>}
             {!token && (
                 <Link to="/login">
