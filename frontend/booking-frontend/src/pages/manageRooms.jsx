@@ -11,9 +11,22 @@ function ManageRooms(){
 
     const handleDisplayBookings = async () => {
         try{
-            const response = await fetch(`http://localhost:8080/api/v1/booking/`)
-        } catch(error) {
+            const response = await fetch(`http://localhost:8080/api/v1/booking/currentBookings`,{
+                method: 'GET',
+                headers: {
+                    'content-type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+                }
+            );
 
+            if(response.ok){
+                const data = await response.json();
+                setRooms = data;
+            }
+
+        } catch(error) {
+            setFeedback("Something went wrong. Try again later.")
         };
     };
 
