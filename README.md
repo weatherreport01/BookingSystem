@@ -4,3 +4,4 @@ I felt that a project like this would be a great starting point for me to learn 
 ## TODO:
 - User Login & Admin login
 - Make things look nicer (Frontend)
+- Change to HTTPS
