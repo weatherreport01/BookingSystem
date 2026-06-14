@@ -21,8 +21,9 @@ public interface BookingService {
 
     void cancelBooking(UUID bookingId);
 
-    BookingEntity updateBooking(UUID bookingId, UpdateBookingRequest request);
+    BookingEntity updateBooking(UpdateBookingRequest request);
 
     List<RoomEntity> getAvailableRooms(LocalDateTime checkInDate, LocalDateTime checkOutDate);
 
+    List<BookingDto> getUserBookings(String email);
 }

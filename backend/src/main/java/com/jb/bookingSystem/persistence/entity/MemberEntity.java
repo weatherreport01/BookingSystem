@@ -3,7 +3,9 @@ package com.jb.bookingSystem.persistence.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -22,6 +24,10 @@ public class MemberEntity {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private MemberRole role;
+
     public MemberEntity(){}
     public MemberEntity(UUID id, String name, String email, String password) {
         this.id = id;
@@ -33,6 +39,7 @@ public class MemberEntity {
     public UUID getId() {
         return id;
     }
+
     public String getName() {
         return name;
     }
@@ -57,15 +64,24 @@ public class MemberEntity {
         this.password = password;
     }
 
-    public boolean equals(Object object) {
-        if (object == null || getClass() != object.getClass()) return false;
-        if (!super.equals(object)) return false;
-        MemberEntity member = (MemberEntity) object;
-        return java.util.Objects.equals(id, member.id) && java.util.Objects.equals(name, member.name) && java.util.Objects.equals(email, member.email) && java.util.Objects.equals(password, member.password);
+    public MemberRole getRole() {
+        return role;
     }
 
+    public void setRole(MemberRole role) {
+        this.role = role;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        MemberEntity member = (MemberEntity) o;
+        return Objects.equals(id, member.id) && Objects.equals(name, member.name) && Objects.equals(email, member.email) && Objects.equals(password, member.password) && Objects.equals(role, member.role);
+    }
+
+    @Override
     public int hashCode() {
-        return java.util.Objects.hash(super.hashCode(), id, name, email, password);
+        return Objects.hash(id, name, email, password, role);
     }
 }
 

@@ -9,6 +9,7 @@ import com.jb.bookingSystem.persistence.entity.MemberEntity;
 import com.jb.bookingSystem.service.MemberService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,12 +26,14 @@ public class MemberController {
     }
 
     @GetMapping(path = "/search/{name}")
+    @PreAuthorize("hasRole('STAFF','ADMIN')")
     public ResponseEntity<MemberDto> searchForMember(@PathVariable String name){
         MemberEntity member = memberService.getMemberByName(name).orElseThrow(); // handle this later
         MemberDto response = memberMapper.toDto(member);
         return ResponseEntity.ok(response);
     }
     @PutMapping(path = "/update")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<MemberDto> updateMember(@RequestBody UpdateMemberRequest request, Authentication authentication){
         String email = authentication.getName(); // gets the email not name
         MemberEntity member = memberService.updateMember(email, request);

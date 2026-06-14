@@ -1,7 +1,18 @@
-
+import { useState } from "react";
+import { Link } from "react-router-dom";
 function Home(){
-    return(
-        <h1>Hey! This is the temp home page :O</h1>
+    // probably needs to have more content
+    const [token,setToken] = useState (localStorage.getItem('authToken'));
+    return(<div>
+
+            <h1>Welcome to the our room booking site!</h1>
+            {!token && (<>
+                <p>You need to login in to book a room.</p>
+                <Link to={"/login"}>
+                    <button>Click here to get started!</button>
+                </Link>
+            </>)}
+        </div>
     );
 }
 

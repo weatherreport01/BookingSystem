@@ -2,6 +2,7 @@ package com.jb.bookingSystem.service.impl;
 
 import com.jb.bookingSystem.api.CreateBookingRequest;
 import com.jb.bookingSystem.api.UpdateBookingRequest;
+import com.jb.bookingSystem.api.dto.BookingDto;
 import com.jb.bookingSystem.mapper.BookingMapper;
 import com.jb.bookingSystem.persistence.entity.BookingEntity;
 import com.jb.bookingSystem.persistence.entity.BookingStatus;
@@ -53,14 +54,20 @@ public class BookingServiceImpl implements BookingService {
         bookingRepository.save(booking);
     }
 
-    public BookingEntity updateBooking(UUID bookingId, UpdateBookingRequest request){
-        BookingEntity booking = bookingRepository.findById(bookingId).orElseThrow(()->new EntityNotFoundException("Booking not found"));
+    public BookingEntity updateBooking(UpdateBookingRequest request){
+        BookingEntity booking = bookingRepository.findById(request.id()).orElseThrow(()->new EntityNotFoundException("Booking not found"));
         bookingMapper.fromDto(booking,request);
         return bookingRepository.save(booking);
     }
 
     public List<RoomEntity> getAvailableRooms(LocalDateTime checkInDate, LocalDateTime checkOutDate){
         return bookingRepository.findAvailableRooms(checkInDate,checkOutDate);
+    }
+
+    @Override
+    public List<BookingDto> getUserBookings(String email) {
+        List<BookingEntity> bookings = bookingRepository.findByMemberEmail(email);
+        return bookingMapper.toDto(bookings);
     }
 
 }

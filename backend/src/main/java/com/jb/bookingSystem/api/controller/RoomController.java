@@ -11,6 +11,7 @@ import com.jb.bookingSystem.service.RoomService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -27,9 +28,9 @@ public class RoomController {
         this.roomService = roomService;
         this.roomMapper = roomMapper;
     }
-
-    @GetMapping(path = "/search/{type}")
-    public ResponseEntity<List<RoomDto>> getRoomsByType(@PathVariable RoomType type){
+    @PreAuthorize("hasRole('STAFF','ADMIN')")
+    @GetMapping(path = "/searchByType")
+    public ResponseEntity<List<RoomDto>> getRoomsByType(@RequestBody RoomType type){
         List<RoomEntity> roomsOfType = roomService.getRoomsByType(type);
         List<RoomDto> response = new ArrayList<>();
         for(RoomEntity room : roomsOfType){
@@ -37,26 +38,28 @@ public class RoomController {
         }
         return ResponseEntity.ok(response);
     }
-    @GetMapping(path = "/search/{roomNumber}")
-    public ResponseEntity<RoomDto> getRoomByNumber(@PathVariable int roomNumber){
+    @GetMapping(path = "/searchByRoomNumber")
+    public ResponseEntity<RoomDto> getRoomByNumber(@RequestBody int roomNumber){
         RoomEntity room = roomService.getRoomByRoomNumber(roomNumber).orElseThrow(); // do something about this later
         RoomDto response = roomMapper.toDto(room);
         return ResponseEntity.ok(response);
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(path = "/create")
     public ResponseEntity<RoomDto> createRoom(@Valid @RequestBody CreateRoomRequest request){
         RoomEntity room = roomService.createRoom(request);
         return new ResponseEntity<>(roomMapper.toDto(room), HttpStatus.CREATED);
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping(path = "/update")
     public ResponseEntity<RoomDto> updateRoom(@Valid @RequestBody UpdateRoomRequest request){
         RoomEntity room = roomService.updateRoom(request);
         RoomDto response = roomMapper.toDto(room);
         return ResponseEntity.ok(response);
     }
-
-    @DeleteMapping(path = "/delete/{roomNumber}")
-    public ResponseEntity<Void> deleteRoom(@PathVariable int roomNumber){
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping(path = "/delete")
+    public ResponseEntity<Void> deleteRoom(@RequestBody int roomNumber){
         roomService.deleteRoom(roomNumber);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

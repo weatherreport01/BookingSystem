@@ -11,6 +11,8 @@ import com.jb.bookingSystem.persistence.entity.MemberEntity;
 import com.jb.bookingSystem.persistence.entity.RoomEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class BookingMapperImpl implements BookingMapper {
 
@@ -21,15 +23,21 @@ public class BookingMapperImpl implements BookingMapper {
         bookingEntity.setRoom(room);
         bookingEntity.setCheckInDate(bookingRequest.checkInDate());
         bookingEntity.setCheckOutDate(bookingRequest.checkOutDate());
-        bookingEntity.setStatus(BookingStatus.PENDING);
+        bookingEntity.setStatus(BookingStatus.CONFIRMED);
         return bookingEntity;
     }
 
     @Override
     public void fromDto(BookingEntity booking, UpdateBookingRequest bookingRequest) {
-        booking.setCheckInDate(bookingRequest.checkInDate());
-        booking.setCheckOutDate(bookingRequest.checkOutDate());
-        booking.setStatus(bookingRequest.status());
+        if(bookingRequest.checkInDate() !=null ){
+            booking.setCheckInDate(bookingRequest.checkInDate());
+        }
+        if(bookingRequest.checkOutDate() !=null ){
+            booking.setCheckOutDate(bookingRequest.checkOutDate());
+        }
+        if(bookingRequest.status() !=null){
+            booking.setStatus(bookingRequest.status());
+        }
     }
 
     @Override
@@ -43,4 +51,11 @@ public class BookingMapperImpl implements BookingMapper {
                 bookingEntity.getStatus()
         );
     }
+
+    @Override
+    public List<BookingDto> toDto(List<BookingEntity> bookings) {
+        return bookings.stream().map(this::toDto).toList();
+    }
+
+
 }

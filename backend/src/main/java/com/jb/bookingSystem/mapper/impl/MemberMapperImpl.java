@@ -6,8 +6,11 @@ import com.jb.bookingSystem.api.UpdateMemberRequest;
 import com.jb.bookingSystem.api.dto.MemberDto;
 import com.jb.bookingSystem.mapper.MemberMapper;
 import com.jb.bookingSystem.persistence.entity.MemberEntity;
+import com.jb.bookingSystem.persistence.entity.MemberRole;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.util.Set;
 
 @Component
 public class MemberMapperImpl implements MemberMapper {
@@ -31,6 +34,7 @@ public class MemberMapperImpl implements MemberMapper {
         member.setName(memberRequest.name());
         member.setEmail(memberRequest.email());
         member.setPassword(encoder.encode(memberRequest.password()));
+        member.setRole(MemberRole.ROLE_USER);
         return member;
     }
 

@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -47,5 +48,4 @@ public class MemberServiceImpl implements MemberService {
         memberMapper.fromDto(member,updateMemberRequest);
         return memberRepository.save(member);
     }
-
 }
