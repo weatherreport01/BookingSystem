@@ -5,6 +5,8 @@ import { Layout } from './Layout.jsx';
 import { ProtectedRoutes } from './components/ProtectedRoutes.jsx';
 import { Login } from './pages/login.jsx';
 import { ManageBookings } from './pages/manageBookings.jsx';
+import { ProtectedStaffRoute } from './components/ProtectedStaffRoute.jsx';
+import { StaffMenu } from './pages/staffMenu.jsx';
 // add more pages later
 // use <Route path="/(WHATEVER)" element={<THE PAGE HERE/>}
 
@@ -19,6 +21,9 @@ function App() {
           <Route element={<ProtectedRoutes/>}>
             <Route path="/booking" element={<Booking/>}/>
             <Route path="/manage" element={<ManageBookings/>}/>
+          </Route>
+          <Route element={<ProtectedStaffRoute/>}>
+            <Route path="/staff" element={<StaffMenu/>}/>
           </Route>
         </Route>
       </Routes>

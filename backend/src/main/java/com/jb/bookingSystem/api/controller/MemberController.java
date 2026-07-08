@@ -25,13 +25,6 @@ public class MemberController {
         this.memberMapper = memberMapper;
     }
 
-    @GetMapping(path = "/search/{name}")
-    @PreAuthorize("hasRole('STAFF','ADMIN')")
-    public ResponseEntity<MemberDto> searchForMember(@PathVariable String name){
-        MemberEntity member = memberService.getMemberByName(name).orElseThrow(); // handle this later
-        MemberDto response = memberMapper.toDto(member);
-        return ResponseEntity.ok(response);
-    }
     @PutMapping(path = "/update")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<MemberDto> updateMember(@RequestBody UpdateMemberRequest request, Authentication authentication){
@@ -41,4 +34,6 @@ public class MemberController {
         return ResponseEntity.ok(response);
 
     }
+
+    // NEED TO ADD A DELETE ENDPOINT
 }
