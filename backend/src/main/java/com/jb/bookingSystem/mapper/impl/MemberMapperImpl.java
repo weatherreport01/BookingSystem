@@ -10,6 +10,8 @@ import com.jb.bookingSystem.persistence.entity.MemberRole;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Component
@@ -27,6 +29,14 @@ public class MemberMapperImpl implements MemberMapper {
                 member.getName(),
                 member.getEmail()
         );
+    }
+
+    public List<MemberDto> toDto(List<MemberEntity> memberEntities){
+        List<MemberDto> response = new ArrayList<>();
+        for(MemberEntity member: memberEntities){
+            response.add(toDto(member));
+        }
+        return response;
     }
 
     public MemberEntity fromDto(CreateMemberRequest memberRequest){

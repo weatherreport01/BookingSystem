@@ -1,6 +1,5 @@
 package com.jb.bookingSystem.service.impl;
 
-import com.jb.bookingSystem.api.AuthMemberRequest;
 import com.jb.bookingSystem.api.CreateMemberRequest;
 import com.jb.bookingSystem.api.UpdateMemberRequest;
 import com.jb.bookingSystem.mapper.MemberMapper;
@@ -9,11 +8,10 @@ import com.jb.bookingSystem.persistence.repository.MemberRepository;
 import com.jb.bookingSystem.service.MemberService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -32,8 +30,8 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.findById(id);
     }
 
-    public Optional<MemberEntity> getMemberByName(String name){
-        return memberRepository.findByName(name);
+    public List<MemberEntity> getMemberByName(String name){
+        return memberRepository.findByNameContaining(name);
     }
 
     public void createMember(CreateMemberRequest memberRequest){

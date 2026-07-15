@@ -39,9 +39,9 @@ public class StaffController {
 
     @GetMapping(path = "/member/search")
     @PreAuthorize("hasRole('STAFF','ADMIN')")
-    public ResponseEntity<MemberDto> searchForMember(@RequestParam String name){
-        MemberEntity member = memberService.getMemberByName(name).orElseThrow(); // handle this later
-        MemberDto response = memberMapper.toDto(member);
+    public ResponseEntity<List<MemberDto>> searchForMember(@RequestParam String name){
+        List<MemberEntity> member = memberService.getMemberByName(name); // handle this later
+        List<MemberDto> response = memberMapper.toDto(member);
         return ResponseEntity.ok(response);
     }
 

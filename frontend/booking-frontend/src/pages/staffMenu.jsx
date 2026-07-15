@@ -7,6 +7,8 @@ function staffMenu(){
     const [searchText, setSearchText] = useState();
     const [feedback, setFeedback] = useState("");
     const [searchData, setSearchData] = useState();
+    const [selectedMember, setSelectedMember] = useState();
+    const [selectedRoom, setSelectedRoom] = useState();
 
     const handleSearch = async => {
         setFeedback("");
@@ -75,7 +77,29 @@ function staffMenu(){
 
     };
 
+    const handleDisplayMemberInfo = async => {
+        // need to make it display all info about a selected member
+    };
+
+    
+    // could include a delete member option?
+
+    const handleCreateRoom = async => {
+
+    };
+
+    const handleUpdateRoom = async => {
+
+    };
+
+    const handleDeleteRoom = async => {
+
+    };
+
+
+
     return(<>
+        {!selectedMember && (
             <div>
                 <h1>Management Page</h1>
                 <h2>Search for a member, room or booking</h2>
@@ -102,12 +126,23 @@ function staffMenu(){
 
                 <button onClick={handleSearch} disabled={!searchText}>Search</button>
             </div>
+            )};
 
-            
-    
-    
+            {selectedMember && (
+                <div>
+                    <h3>Member Details:</h3>
+                    <p>Full Name: {selectedMember.name}</p>
+                    <p>Email: {selectedMember.email}</p>
+                    <button>Delete Member</button>
+                    <button onClick={()=> {setSelectedMember(null);}}>Back</button>
+                </div>
+            )};
 
-    
+            {selectedRoom && (
+                <div>
+                    
+                </div>
+            )};
           </>);
 }
 
