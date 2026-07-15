@@ -81,6 +81,11 @@ public class StaffController {
         roomService.deleteRoom(roomNumber);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping(path = "/rooms/type")
+    public ResponseEntity<RoomType[]> getRoomTypes(){
+        return ResponseEntity.ok(RoomType.values());
+    }
 
     // NEED TO ADD BOOKING MANAGEMENT ENDPOINTS FOR STAFF MEMBERS
 }

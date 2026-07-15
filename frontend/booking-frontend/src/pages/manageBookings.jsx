@@ -123,7 +123,7 @@ function ManageBookings(){
                     <div> 
                         <p>Are you sure you want to cancel your booking?</p>
                         <button onClick={() => handleCancelBooking(selectedBooking.id)}>Yes</button>
-                        <button onClick={() => {setManageAction(null);}}>No</button>
+                        <button onClick={() => setManageAction(null)}>No</button>
                     </div>
                 )}
 
@@ -141,7 +141,7 @@ function ManageBookings(){
                             <input type="datetime-local" value={newCheckOut} onChange={(e) => setNewCheckOut(e.target.value)}/>
                         </label>
                         <button onClick={() => handleManageBooking(selectedBooking.id,newCheckIn,newCheckOut)}>Confirm</button>
-                        <button onClick={()=> setManageAction(null)}>Cancel</button>
+                        <button onClick={() => setManageAction(null)}>Cancel</button>
                     </div>
                 )}
             </div>
