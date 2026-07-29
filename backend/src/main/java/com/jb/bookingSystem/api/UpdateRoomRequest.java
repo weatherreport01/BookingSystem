@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 
 public record UpdateRoomRequest(
         @NotNull @NotBlank int roomNumber,
+        int newRoomNumber,
         RoomType roomType
 ) {
 }

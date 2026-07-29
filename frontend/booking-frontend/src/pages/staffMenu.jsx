@@ -94,13 +94,61 @@ function staffMenu(){
 
     };
 
-    const handleUpdateRoom = async () => {
+    const handleUpdateRoom = async (roomNumber,newRoomNumber, type) => {
         // simply send the update to the backend 
         // remember to convert the the roomnumber to an int - check in other places if this needs to be changed too
+        try{
+
+            const updateData = {
+                roomNumber: roomNumber,
+                newRoomNumber: newRoomNumber,
+                type: type
+            }
+            const response = await fetch(`http://localhost:8080/api/v1/staff/rooms/update`,{
+                method: 'PUT',
+                headers: {
+                    'content-type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+                },
+                body: JSON.stringify(updateData)
+                }
+            );
+            if (response.ok){
+                setFeedback("Updated room!")
+                // etc
+                
+            }
+
+        } catch(error){
+            // do smth
+        };
+
     };
 
-    const handleDeleteRoom = async () => {
+    const handleDeleteRoom = async (roomNumber) => {
         // roomNumber should be provided
+
+        try{
+            const response = await fetch(`http://localhost:8080/api/v1/staff/rooms/delete`,{
+                method: 'DELETE',
+                headers: {
+                    'content-type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('authToken')}`},
+                body: JSON.stringify({id:roomNumber})
+                }
+            );
+
+            if(response.ok){
+                setFeedback("Room Deleted!");
+                
+            }
+            else{
+                setFeedback("Something went wrong. Try again.");
+            }
+
+        } catch(error){
+            // do something
+        };
     };
 
 

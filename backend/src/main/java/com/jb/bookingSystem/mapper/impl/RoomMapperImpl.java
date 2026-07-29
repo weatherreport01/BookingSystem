@@ -30,7 +30,7 @@ public class RoomMapperImpl implements RoomMapper {
 
     @Override
     public void fromDto(RoomEntity room, UpdateRoomRequest updateRoomRequest) {
-        room.setRoomNumber(updateRoomRequest.roomNumber());
+        room.setRoomNumber(updateRoomRequest.newRoomNumber());
         room.setType(updateRoomRequest.roomType());
     }
 }
