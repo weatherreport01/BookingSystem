@@ -45,9 +45,10 @@ public class StaffController {
         return ResponseEntity.ok(response);
     }
 
+    // currently unused
     @PreAuthorize("hasRole('STAFF','ADMIN')")
-    @GetMapping(path = "/rooms/searchByType/{type}")
-    public ResponseEntity<List<RoomDto>> getRoomsByType(@PathVariable RoomType type){
+    @GetMapping(path = "/rooms/searchByType")
+    public ResponseEntity<List<RoomDto>> getRoomsByType(@RequestParam RoomType type){
         List<RoomEntity> roomsOfType = roomService.getRoomsByType(type);
         List<RoomDto> response = new ArrayList<>();
         for(RoomEntity room : roomsOfType){

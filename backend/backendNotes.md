@@ -1,0 +1,1 @@
+maybe staff notes for members and bookings could be useful

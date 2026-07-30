@@ -18,7 +18,7 @@ function staffMenu(){
         setFeedback("");
         if (searchType ==="Member"){
             try{
-                const response = await fetch(`http://localhost:8080/api/v1/members/search?name=${searchText}`,{
+                const response = await fetch(`http://localhost:8080/api/v1/staff/members/search?name=${searchText}`,{
                 method: 'GET',
                 headers: {
                     'content-type': 'application/json',
@@ -39,7 +39,7 @@ function staffMenu(){
         }
         else if (searchType ==="Room"){
             try{
-                const response = await fetch(`http://localhost:8080/api/v1/rooms/searchByRoomNumber?roomNumber=${searchText}`,{
+                const response = await fetch(`http://localhost:8080/api/v1/staff/rooms/searchByRoomNumber?roomNumber=${searchText}`,{
                 method: 'GET',
                 headers: {
                     'content-type': 'application/json',
@@ -59,8 +59,8 @@ function staffMenu(){
         }
         else if (searchType === "Booking"){
             try{
-                // need to make staff controller that will display all current bookings
-                const response = await fetch(`http://localhost:8080/api/v1/`,{
+                // NOTE WAITING ON STAFF CONTROLLER FOR THIS FEATURE - NEEDS TO DISPLAY ALL BOOKINGS
+                const response = await fetch(`http://localhost:8080/api/v1/staff/`,{
                 method: 'GET',
                 headers: {
                     'content-type': 'application/json',
@@ -81,22 +81,35 @@ function staffMenu(){
 
     };
 
-    const handleDisplayMemberInfo = async () => {
-        // need to make it display all info about a selected member
-    };
-
+    const handleDeleteMember = async (memberId) =>  {
     
-    // could include a delete member option?
-    // + delete/ban? member
-    // + maybe staff notes for members and bookings could be useful
+        // WAITING ON ENDPOINT BEING ADDED
+    };
+    
 
-    const handleCreateRoom = async () => {
-
+    const handleCreateRoom = async (roomNumber, roomType) => {
+        const roomData = {
+            roomNumber: roomNumber,
+            type: roomType
+        };
+        try{
+            const response = await fetch(`http://localhost:8080/api/v1/staff/rooms/create`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('authToken')}`}, 
+                body: JSON.stringify(roomData)
+            });
+            if (response.ok){
+                setFeedback("Created room!");
+                // reset some variable  
+            }
+        } catch(error){
+            // handle this later
+        }
     };
 
     const handleUpdateRoom = async (roomNumber,newRoomNumber, type) => {
-        // simply send the update to the backend 
-        // remember to convert the the roomnumber to an int - check in other places if this needs to be changed too
+        
         try{
 
             const updateData = {
@@ -114,8 +127,8 @@ function staffMenu(){
                 }
             );
             if (response.ok){
-                setFeedback("Updated room!")
-                // etc
+                setFeedback("Updated room!");
+                selectedRoom(null);
                 
             }
 
@@ -126,7 +139,6 @@ function staffMenu(){
     };
 
     const handleDeleteRoom = async (roomNumber) => {
-        // roomNumber should be provided
 
         try{
             const response = await fetch(`http://localhost:8080/api/v1/staff/rooms/delete`,{
