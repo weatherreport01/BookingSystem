@@ -18,4 +18,6 @@ public interface MemberService {
     void createMember(CreateMemberRequest memberRequest);
 
     MemberEntity updateMember(String email,UpdateMemberRequest updateMemberRequest);
+
+    void staffDeleteMember(String email);
 }

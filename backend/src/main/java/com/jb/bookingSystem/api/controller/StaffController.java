@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/staff")
@@ -45,7 +46,15 @@ public class StaffController {
         return ResponseEntity.ok(response);
     }
 
-    // currently unused
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping(path = "/member/delete")
+    public ResponseEntity<Void> deleteMember(@RequestBody String email){
+        memberService.staffDeleteMember(email);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
+    // currently not used
     @PreAuthorize("hasRole('STAFF','ADMIN')")
     @GetMapping(path = "/rooms/searchByType")
     public ResponseEntity<List<RoomDto>> getRoomsByType(@RequestParam RoomType type){
@@ -87,6 +96,7 @@ public class StaffController {
     public ResponseEntity<RoomType[]> getRoomTypes(){
         return ResponseEntity.ok(RoomType.values());
     }
+
 
     // NEED TO ADD BOOKING MANAGEMENT ENDPOINTS FOR STAFF MEMBERS
 }

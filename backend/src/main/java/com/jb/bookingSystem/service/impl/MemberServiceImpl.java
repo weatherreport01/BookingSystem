@@ -46,4 +46,12 @@ public class MemberServiceImpl implements MemberService {
         memberMapper.fromDto(member,updateMemberRequest);
         return memberRepository.save(member);
     }
+
+
+    public void staffDeleteMember(String email) {
+        MemberEntity member = memberRepository.findByEmail(email).orElseThrow();
+        memberRepository.delete(member);
+    }
+
+
 }

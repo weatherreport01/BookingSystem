@@ -81,9 +81,28 @@ function staffMenu(){
 
     };
 
-    const handleDeleteMember = async (memberId) =>  {
+    const handleDeleteMember = async (email) =>  {
     
-        // WAITING ON ENDPOINT BEING ADDED
+          try{
+            const response = await fetch(`http://localhost:8080/api/v1/staff/member/delete`,{
+                method: 'DELETE',
+                headers: {
+                    'content-type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('authToken')}`},
+                body: JSON.stringify({email:email})
+                }
+            );
+
+            if(response.ok){
+                setFeedback("Member Deleted!");
+                
+            }
+            else{
+                setFeedback("Something went wrong. Try again.");
+            }
+          } catch(error){
+            // smth
+          }
     };
     
 
