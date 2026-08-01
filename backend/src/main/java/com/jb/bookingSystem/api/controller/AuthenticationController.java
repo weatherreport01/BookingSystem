@@ -2,6 +2,7 @@ package com.jb.bookingSystem.api.controller;
 
 import com.jb.bookingSystem.api.AuthMemberRequest;
 import com.jb.bookingSystem.api.CreateMemberRequest;
+import com.jb.bookingSystem.persistence.entity.MemberEntity;
 import com.jb.bookingSystem.persistence.repository.MemberRepository;
 import com.jb.bookingSystem.security.JwtUtil;
 import com.jb.bookingSystem.service.MemberService;
@@ -45,7 +46,8 @@ public class AuthenticationController {
                 )
         );
         final UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String token = jwtUtil.generateToken(userDetails.getUsername());
+        MemberEntity member = memberService.getMemberByEmail(memberRequest.email()).orElseThrow();
+        String token = jwtUtil.generateToken(userDetails.getUsername(), member.getRole());
         return ResponseEntity.ok(token);
     }
     @PostMapping("/signup")

@@ -19,7 +19,14 @@ function NavBar(){
             <Link to="/manage">
                 <button>Manage Bookings</button>
             </Link>
-            {token && <button onClick={handleLogout}>Logout</button>}
+            
+            {token &&( <>
+                <Link to= "/staff">
+                <button>Staff</button>
+                </Link>
+                <button onClick={handleLogout}>Logout</button>
+                </>
+            )}
             {!token && (
                 <Link to="/login">
                     <button>Login</button>

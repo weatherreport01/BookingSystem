@@ -10,10 +10,12 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface MemberService {
-    // returns entities but will convert to a dto in the controller layer
+
     Optional<MemberEntity> getMember(UUID id);
 
     List<MemberEntity> getMemberByName(String name);
+
+    Optional<MemberEntity> getMemberByEmail(String email);
 
     void createMember(CreateMemberRequest memberRequest);
 

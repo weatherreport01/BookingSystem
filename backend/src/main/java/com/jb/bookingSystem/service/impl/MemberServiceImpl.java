@@ -34,6 +34,8 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.findByNameContaining(name);
     }
 
+    public Optional<MemberEntity> getMemberByEmail(String email) {return memberRepository.findByEmail(email);}
+
     public void createMember(CreateMemberRequest memberRequest){
         MemberEntity memberEntity = memberMapper.fromDto(memberRequest);
         memberRepository.save(memberEntity);
